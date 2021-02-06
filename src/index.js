@@ -25,13 +25,13 @@ router.post('/add', async (ctx) => {
 
 router.get('/total', async (ctx) => {
   const headers = ctx.request.headers;
-  await cart.total({
+  const total = await cart.total({
     customerId: headers['customer-id'],
   }).catch((err) => {
     console.error(err, 'Unhandled Error in Fetching Cart Total');
     return ctx.throw(config.codes.internalServer);
   });
-  ctx.body = {};
+  ctx.body = total;
   ctx.status = config.total.successCode;
 });
 

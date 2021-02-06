@@ -11,7 +11,7 @@ const cart = ({config, db}) => {
   const add = async ({product, customerId}) => {
     const customer = await customerDal.getCustomer({customerId});
     const foundIndex = customer && customer.cart && customer.cart.findIndex((item) => item.id === product);
-    if (foundIndex && foundIndex !== -1) {
+    if (foundIndex !== undefined && foundIndex !== -1) {
       await customerDal.updateCartQty({foundIndex, customerId});
     } else {
       // Maybe move this to a models folder in future.
@@ -26,9 +26,9 @@ const cart = ({config, db}) => {
   const total = async ({customerId}) => {
     const customer = await customerDal.getCustomer({customerId});
     const {cart} = customer;
-    if (cart || !cart.length) {
+    if (!cart || !cart.length) {
       // Empty Cart
-      return 0;
+      return {total: 0, discountTotal: 0};
     }
 
     const [products, discounts, discountGroups] = await Promise.all([
@@ -37,27 +37,28 @@ const cart = ({config, db}) => {
       getDiscountGroups({customerId}),
     ]);
 
-    const applicableDiscounts = discounts.filter((d) => discountGroups.find((dg) => dg.sk === d.sk ));
+    const applicableDiscounts = discounts.filter((d) => discountGroups.find((dg) => dg === d.discountGroup ));
 
-    const {total, discountTotal} = cart.reduce(({tot, dTot}, item) => {
+    const {total, discountTotal} = cart.reduce(({total, discountTotal}, item) => {
       const product = products.find((p) => p.pk === item.id);
       const discount = applicableDiscounts.find((ad) => ad.pk === product.pk);
-      const total = tot + (item.qty * product.price);
+      const itemTotal = (item.qty * product.price);
       return {
-        tot: total,
-        dTot: discount ? applyRule({rule: discount.rule, price: product.price, qty: item.qty, discount}) : total,
+        total: total + itemTotal,
+        discountTotal: discountTotal + discount ? applyRule({rule: discount.rule, price: product.price, qty: item.qty, discount}) : itemTotal,
       };
-    }, {tot: 0, dTot: 0});
-
+    }, {total: 0, discountTotal: 0});
     return {total, discountTotal};
   };
 
 
   // Helpers
 
-  const applyRule = async ({rule, price, qty, discount}) => {
+  const applyRule = ({rule, price, qty, discount}) => {
     const ruleSet = rules[rule];
-    return ruleSet.getPrice({price, qty, discount});
+    const newPice = ruleSet.getPrice({price, qty, discount});
+    console.log(newPice);
+    return newPice;
   };
 
   const getProducts = async ({cart}) => {
@@ -80,4 +81,5 @@ const cart = ({config, db}) => {
   };
 };
 
+module.exports = cart;
 
