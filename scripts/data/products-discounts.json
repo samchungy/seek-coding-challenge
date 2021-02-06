@@ -2,6 +2,7 @@
   {
     "pk": "product-classic",
     "sk": "discount-310efb0f-8a8a-42d7-b4e2-2b327bcb1fdc",
+    "discountGroup": "discount_group-98964169-bb88-4924-9354-66422b49b05d",
     "rule": "qty",
     "qty": 3,
     "qtyCost": 2
@@ -9,12 +10,14 @@
   {
     "pk": "product-stand_out",
     "sk": "discount-09be2de4-b4dc-4225-9190-535f0696ef82",
+    "discountGroup": "discount_group-cdc04dfc-b2f9-46bf-b536-93c104934b60",
     "rule": "flat",
     "price": 299.99
   },
   {
     "pk": "product-stand_out",
     "sk": "discount-d09ffd2c-3d5b-4a28-835b-6856fc413a16",
+    "discountGroup": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
     "rule": "qty",
     "qty": 5,
     "qtyCost": 4
@@ -22,6 +25,7 @@
   {
     "pk": "product-premium",
     "sk": "discount-d72b67fd-e9b8-4461-85fc-62d7326fe2db",
+    "discountGroup": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
     "rule": "flat",
     "price": 299.99
   }
