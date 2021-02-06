@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "local": "docker-compose down && docker-compose up --build --no-start && docker-compose up -d dynamodb-local && docker-compose run setup-dynamodb && nodemon --exec \"npm run monitor\" || true && docker-compose down",
+    "monitor": "docker-compose up --build microservice",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sam Chung",
@@ -17,6 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^7.19.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^2.0.7"
   }
 }

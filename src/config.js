@@ -6,7 +6,7 @@ module.exports = {
     },
     table: process.env.AWS_DYNAMODB_TABLE,
     secondaryIndex: {
-      mainKeys: 'skIndexKeys',
+      mainKeys: 'skIndex',
     },
   },
   product: {
