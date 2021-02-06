@@ -1,0 +1,28 @@
+[
+  {
+    "pk": "product-classic",
+    "sk": "discount-310efb0f-8a8a-42d7-b4e2-2b327bcb1fdc",
+    "rule": "qty",
+    "qty": 3,
+    "qtyCost": 2
+  },
+  {
+    "pk": "product-stand_out",
+    "sk": "discount-09be2de4-b4dc-4225-9190-535f0696ef82",
+    "rule": "flat",
+    "price": 299.99
+  },
+  {
+    "pk": "product-stand_out",
+    "sk": "discount-d09ffd2c-3d5b-4a28-835b-6856fc413a16",
+    "rule": "qty",
+    "qty": 5,
+    "qtyCost": 4
+  },
+  {
+    "pk": "product-premium",
+    "sk": "discount-d72b67fd-e9b8-4461-85fc-62d7326fe2db",
+    "rule": "flat",
+    "price": 299.99
+  }
+]

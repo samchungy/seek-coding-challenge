@@ -2,24 +2,27 @@
     "pk": "product-classic",
     "sk": "product-classic",
     "name": "Classic Ad",
-    "price": "$269.99",
+    "price": 269.99,
     "description": "Offers the most basic level of advertisement",
-    "discount": null
+    "discount": null,
+    "stock": 999
   },
   {
     "pk": "product-stand_out",
     "sk": "product-stand_out",
     "name": "Stand out Ad",
-    "price": "$322.99",
+    "price": 322.99,
     "description": "Allows advertisers to use a company logo and use a longer presentation text",
-    "discount": null
+    "discount": null,
+    "stock": 999
   },
   {
     "pk": "product-premium",
     "sk": "product-premium",
     "name": "Premium Ad",
-    "price": "$394.99",
+    "price": 394.99,
     "description": "Same benefits as Standout Ad, but also puts the advertisement at the top of the results, allowing higher visibility",
-    "discount": null
+    "discount": null,
+    "stock": 999
   }
 ]
