@@ -1,5 +1,5 @@
 // Discount Rules
-module.exports = {
-  flat: require('./flat'),
-  qty: require('./quantity'),
-};
+module.exports = ({config}) => ({
+  [config.discount.codes.flat]: require('./flat'),
+  [config.discount.codes.qty]: require('./quantity'),
+});
