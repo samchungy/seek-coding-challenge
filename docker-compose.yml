@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+
+  app-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - dynamodb-local
+      - setup-dynamodb
+    container_name: microservice
+    ports:
+     - "3000:3000"
+    environment: &main
+      AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
+      AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
+      AWS_REGION: "ap-southeast-2"
+      AWS_DYNAMODB_ENDPOINT: 'http://dynamodb-local:8000'
+      AWS_DYNAMODB_TABLE: 'seek-checkout'
+    restart: on-failure
+    command: 
+      ./scripts/wait-for-it.sh dynamodb-local:8000 -- npm start
+
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -inMemory -sharedDb"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    working_dir: /home/dynamodblocal
+
+  setup-dynamodb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - dynamodb-local
+    environment: 
+      <<: *main
+    command:
+      ./scripts/wait-for-it.sh dynamodb-local:8000 -- node scripts/setup-table.js

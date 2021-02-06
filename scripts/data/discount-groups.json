@@ -1,17 +1,17 @@
 [
   {
     "pk": "discount_group-98964169-bb88-4924-9354-66422b49b05d",
-    "sk": "name",
+    "sk": "discount_group-98964169-bb88-4924-9354-66422b49b05d",
     "data": "Yearly"
   },
   {
     "pk": "discount_group-cdc04dfc-b2f9-46bf-b536-93c104934b60",
-    "sk": "name",
+    "sk": "discount_group-cdc04dfc-b2f9-46bf-b536-93c104934b60",
     "data": "Monthly"
   },
   {
     "pk": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
-    "sk": "name",
+    "sk": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
     "data": "Weekly"
   }
 ]
