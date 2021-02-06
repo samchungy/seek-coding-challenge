@@ -23,10 +23,16 @@ router.post('/add', async (ctx) => {
   ctx.status = config.addItem.successCode;
 });
 
-});
-
-router.get('total', async (ctx) => {
-
+router.get('/total', async (ctx) => {
+  const headers = ctx.request.headers;
+  await cart.total({
+    customerId: headers['customer-id'],
+  }).catch((err) => {
+    console.error(err, 'Unhandled Error in Fetching Cart Total');
+    return ctx.throw(config.codes.internalServer);
+  });
+  ctx.body = {};
+  ctx.status = config.total.successCode;
 });
 
 app.use(router.routes());
