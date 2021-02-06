@@ -1,14 +1,12 @@
 version: '3.8'
 services:
 
-  app-node:
+  microservice  :
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
       - dynamodb-local
-      - setup-dynamodb
-    container_name: microservice
     ports:
      - "3000:3000"
     environment: &main
