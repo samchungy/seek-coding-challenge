@@ -1,0 +1,14 @@
+[
+  {
+    "pk": "customer-000001",
+    "sk": "discount_group-98964169-bb88-4924-9354-66422b49b05d"
+  },
+  {
+    "pk": "customer-000002",
+    "sk": "discount_group-cdc04dfc-b2f9-46bf-b536-93c104934b60"
+  },
+  {
+    "pk": "customer-000003",
+    "sk": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d"
+  }
+]

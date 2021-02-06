@@ -1,0 +1,16 @@
+[{
+    "pk": "customer-000001",
+    "sk": "main",
+    "name": "SecondBite"
+  },
+  {
+    "pk": "customer-000002",
+    "sk": "main",
+    "name": "Axil Coffee Roasters"
+  },
+  {
+    "pk": "customer-000003",
+    "sk": "main",
+    "name": "Myer"
+  }
+]
