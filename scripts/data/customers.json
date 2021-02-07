@@ -12,5 +12,10 @@
     "pk": "customer-000003",
     "sk": "customer-000003",
     "name": "Myer"
+  },
+  {
+    "pk": "customer-000004",
+    "sk": "customer-000004",
+    "name": "Sam"
   }
 ]
