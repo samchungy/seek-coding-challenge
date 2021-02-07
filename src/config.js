@@ -33,6 +33,7 @@ module.exports = {
     successCode: 200,
     success: 'Product successfully added',
     noCustomer: 'Customer does not exist',
+    noProduct: 'Product does not exist',
   },
   total: {
     successCode: 200,

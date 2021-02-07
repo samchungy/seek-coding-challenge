@@ -33,6 +33,9 @@ router.get('/total', async (ctx) => {
   const total = await cart.total({
     customerId: headers['customer-id'],
   }).catch((err) => {
+    if (err.constructor === RouteError) {
+      return ctx.throw(err.statusCode, err.response, {expose: true});
+    };
     console.error(err, 'Unhandled Error in Fetching Cart Total');
     return ctx.throw(config.codes.internalServer);
   });

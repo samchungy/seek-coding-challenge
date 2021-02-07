@@ -62,8 +62,12 @@ describe('Service Cart', () => {
       const customer = {
         pk: 'test',
       };
+      const product = {
+        id: 'product-000001',
+      };
       customerDal.getCustomer.resolves(customer);
       customerDal.addToCart.resolves();
+      productDal.getProduct.resolves(product);
 
       await cart.add(params).should.be.fulfilled;
       sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
@@ -88,8 +92,12 @@ describe('Service Cart', () => {
           id: 'product-000002',
         }],
       };
+      const product = {
+        id: 'product-000001',
+      };
       customerDal.getCustomer.resolves(customer);
       customerDal.addToCart.resolves();
+      productDal.getProduct.resolves(product);
 
       await cart.add(params).should.be.fulfilled;
       sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
@@ -115,8 +123,12 @@ describe('Service Cart', () => {
         pk: 'test',
         cart: [item],
       };
+      const product = {
+        id: 'product-000001',
+      };
       customerDal.getCustomer.resolves(customer);
       customerDal.updateCartQty.resolves();
+      productDal.getProduct.resolves(product);
 
       await cart.add(params).should.be.fulfilled;
       sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
@@ -132,7 +144,26 @@ describe('Service Cart', () => {
         customerId: 'test',
       };
       customerDal.getCustomer.resolves(null);
-      customerDal.updateCartQty.resolves();
+
+      await cart.add(params).should.be.rejected;
+      sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
+    });
+
+    it('should successfully handle a non existant product', async () => {
+      const params = {
+        product: 'product-000001',
+        customerId: 'test',
+      };
+      const item = {
+        qty: 1,
+        id: 'product-000001',
+      };
+      const customer = {
+        pk: 'test',
+        cart: [item],
+      };
+      customerDal.getCustomer.resolves(customer);
+      productDal.getProduct.resolves(null);
 
       await cart.add(params).should.be.rejected;
       sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
@@ -332,6 +363,16 @@ describe('Service Cart', () => {
       sinon.assert.calledWith(productDal.getProduct, {id: item2.id});
       sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number});
       sinon.assert.calledWith(productDal.findDiscounts, {id: item2.id, ttl: sinon.match.number});
+    });
+
+    it('should successfully handle invalid customer', async () => {
+      const params = {
+        customerId: 'test',
+      };
+      customerDal.getCustomer.resolves(null);
+
+      await cart.total(params).should.be.rejected;
+      sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
     });
   });
 });

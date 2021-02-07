@@ -8,9 +8,11 @@ const cart = ({config, db, rules}) => {
   // Endpoints
 
   const add = async ({product, customerId}) => {
-    const customer = await customerDal.getCustomer({customerId});
-    if (!customer) {
-      throw new RouteError(config.codes.badRequest, config.addItem.noCustomer);
+    const customer = await checkCustomer({customerId});
+
+    const productDetails = await productDal.getProduct({id: product});
+    if (!productDetails) {
+      throw new RouteError(config.codes.badRequest, config.addItem.noProduct);
     }
     const foundIndex = customer && customer.cart && customer.cart.findIndex((item) => item.id === product);
     if (foundIndex !== undefined && foundIndex !== -1) {
@@ -26,7 +28,7 @@ const cart = ({config, db, rules}) => {
   };
 
   const total = async ({customerId}) => {
-    const customer = await customerDal.getCustomer({customerId});
+    const customer = await checkCustomer({customerId});
     const {cart} = customer;
     if (!cart || !cart.length) {
       // Empty Cart
@@ -55,6 +57,14 @@ const cart = ({config, db, rules}) => {
 
 
   // Helpers
+
+  const checkCustomer = async ({customerId}) => {
+    const customer = await customerDal.getCustomer({customerId});
+    if (!customer) {
+      throw new RouteError(config.codes.badRequest, config.addItem.noCustomer);
+    }
+    return customer;
+  };
 
   const applyDiscount = ({discount, price, qty, itemTotal}) => {
     if (discount) {

@@ -101,6 +101,18 @@ describe('Index', () => {
       });
     });
 
+    it('should return a bad request customer not found error', async () => {
+      const badRequest = new RouteError(config.codes.badRequest, config.addItem.noCustomer);
+      cartStub.total.rejects(badRequest);
+      const response = await (request(app)
+          .get('/total')
+          .set('Accept', 'application/json')
+          .set('customer-id', 'customer-000001'));
+
+      response.status.should.equal(config.codes.badRequest);
+      response.text.should.equal(config.addItem.noCustomer);
+    });
+
     it('should return an internal server error', async () => {
       const error = new Error();
       cartStub.total.rejects(error);
