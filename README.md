@@ -26,7 +26,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A Cart Web API for Seek's Coding Challenge
+A Cart Microservice for Seek's Coding Challenge
 
 ### Built With
 * Node.js 12
