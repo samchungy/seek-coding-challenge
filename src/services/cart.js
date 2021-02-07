@@ -1,8 +1,7 @@
-const ruleFactory = require('../rules');
 const {getUnixTime} = require('../util/time');
+const RouteError = require('../errors/route-error');
 
-const cart = ({config, db}) => {
-  const rules = ruleFactory({config});
+const cart = ({config, db, rules}) => {
   const customerDal = db.customer;
   const productDal = db.product;
 
@@ -10,6 +9,9 @@ const cart = ({config, db}) => {
 
   const add = async ({product, customerId}) => {
     const customer = await customerDal.getCustomer({customerId});
+    if (!customer) {
+      throw new RouteError(config.codes.badRequest, config.addItem.noCustomer);
+    }
     const foundIndex = customer && customer.cart && customer.cart.findIndex((item) => item.id === product);
     if (foundIndex !== undefined && foundIndex !== -1) {
       await customerDal.updateCartQty({foundIndex, customerId});
