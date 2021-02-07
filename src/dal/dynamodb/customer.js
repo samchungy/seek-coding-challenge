@@ -38,8 +38,7 @@ const customerDal = ({config, client}) => {
       },
     };
 
-    const results = await client.queryObjects(params);
-    return results.map((r) => r.sk);
+    return await client.queryObjects(params);
   };
 
   return {

@@ -37,7 +37,7 @@ const cart = ({config, db}) => {
       getDiscountGroups({customerId}),
     ]);
 
-    const applicableDiscounts = discounts.filter((d) => discountGroups.find((dg) => dg === d.discountGroup ));
+    const applicableDiscounts = discounts.filter((d) => discountGroups.find((dg) => dg.sk === d.discountGroup ));
 
     const {total, discountTotal} = cart.reduce(({total, discountTotal}, item) => {
       const product = products.find((p) => p.pk === item.id);
