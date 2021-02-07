@@ -120,6 +120,7 @@ I thought it would be a little bit of fun to try out Dynamodb's Modelling of rel
 * All products added are in stock.
 * Could have used Swagger and Typescript but thought development time would take too long.
 * Could have moved the routes into a separate file from index.js but I ran out of time.
+* Could have used a proper logger but ran out of time.
 
 ## Contact
 
