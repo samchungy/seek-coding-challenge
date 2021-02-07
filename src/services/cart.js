@@ -45,7 +45,7 @@ const cart = ({config, db}) => {
       const itemTotal = (item.qty * product.price);
       return {
         total: total + itemTotal,
-        discountTotal: discountTotal + discount ? applyRule({rule: discount.rule, price: product.price, qty: item.qty, discount}) : itemTotal,
+        discountTotal: discountTotal + applyDiscount({discount, price: product.price, qty: item.qty, itemTotal}),
       };
     }, {total: 0, discountTotal: 0});
     return {total, discountTotal};
@@ -54,11 +54,12 @@ const cart = ({config, db}) => {
 
   // Helpers
 
-  const applyRule = ({rule, price, qty, discount}) => {
-    const ruleSet = rules[rule];
-    const newPice = ruleSet.getPrice({price, qty, discount});
-    console.log(newPice);
-    return newPice;
+  const applyDiscount = ({discount, price, qty, itemTotal}) => {
+    if (discount) {
+      const ruleSet = rules[discount.rule];
+      return ruleSet.getPrice({price, qty, discount});
+    }
+    return itemTotal;
   };
 
   const getProducts = async ({cart}) => {
