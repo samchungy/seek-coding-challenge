@@ -14,7 +14,7 @@ const dynamodb = ({config}) => {
         .get(params)
         .promise()
         .catch((err) => {
-          console.error(err, `Failed to get object ${JSON.stringify(key)} for ${TableName}`);
+          console.error(err, `Failed to get object ${JSON.stringify(key)}`);
           throw err;
         });
 
@@ -30,7 +30,7 @@ const dynamodb = ({config}) => {
         .put(params)
         .promise()
         .catch((err) => {
-          console.error(err, `Failed to put object ${JSON.stringify(object)} for ${TableName}`);
+          console.error(err, `Failed to put object ${JSON.stringify(object)}`);
           throw err;
         });
   };
@@ -49,7 +49,7 @@ const dynamodb = ({config}) => {
         .update(params)
         .promise()
         .catch((err) => {
-          console.error(err, `Failed to update object ${JSON.stringify(params)} for ${TableName}`);
+          console.error(err, `Failed to update object ${JSON.stringify(params)}`);
           throw err;
         });
   };
@@ -72,12 +72,12 @@ const dynamodb = ({config}) => {
           .query(params)
           .promise()
           .catch((err) => {
-            console.error(err, `Failed to query ${JSON.stringify(params)} for ${TableName}`);
+            console.error(err, `Failed to query ${JSON.stringify(params)}`);
             throw err;
           });
 
       if (results.LastEvaluatedKey) {
-        return [...results.Items, ...(await query({exclusiveStartKey: LastEvaluatedKey}))];
+        return [...results.Items, ...(await query({exclusiveStartKey: results.LastEvaluatedKey}))];
       } else {
         return results.Items;
       }
