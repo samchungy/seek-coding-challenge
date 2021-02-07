@@ -44,7 +44,7 @@ A Cart Web API for Seek's Coding Challenge
   * Validates customer
   * Queries a product for discounts, queries a customer for their discount groups
   * Applies the intersection of the two queries against products.
-  * Returns the `total` (undiscounted) price and the `disountedTotal`.
+  * Returns the `total` (undiscounted) price and the `discountTotal`.
 
 <!-- GETTING STARTED -->
 ## Getting Started
