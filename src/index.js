@@ -4,7 +4,9 @@ const koaBody = require('koa-body');
 
 const config = require('./config');
 const db = require('./dal/dynamodb')({config});
-const cart = require('./services/cart')({config, db});
+const rules = require('./rules')({config});
+const cart = require('./services/cart')({config, db, rules});
+const RouteError = require('./errors/route-error');
 
 const app = new Koa();
 app.use(koaBody());
@@ -16,6 +18,9 @@ router.post('/add', async (ctx) => {
     product: body.product,
     customerId: headers['customer-id'],
   }).catch((err) => {
+    if (err.constructor === RouteError) {
+      return ctx.throw(err.statusCode, JSON.stringify(err.response), {expose: true});
+    };
     console.error(err, 'Unhandled Error in Add Cart');
     return ctx.throw(config.codes.internalServer);
   });

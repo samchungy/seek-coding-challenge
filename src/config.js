@@ -27,10 +27,12 @@ module.exports = {
   },
   codes: {
     internalServer: 500,
+    badRequest: 400,
   },
   addItem: {
     successCode: 200,
     success: 'Product successfully added',
+    noCustomer: 'Customer does not exist',
   },
   total: {
     successCode: 200,
