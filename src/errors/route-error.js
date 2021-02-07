@@ -11,9 +11,7 @@ class RouteError extends Error {
     super(`${statusCode} route error`);
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, RouteError);
-    }
+    Error.captureStackTrace(this, RouteError);
     this.name = this.constructor.name;
     this.statusCode = statusCode;
     // Custom debugging information

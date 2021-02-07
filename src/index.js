@@ -19,7 +19,7 @@ router.post('/add', async (ctx) => {
     customerId: headers['customer-id'],
   }).catch((err) => {
     if (err.constructor === RouteError) {
-      return ctx.throw(err.statusCode, JSON.stringify(err.response), {expose: true});
+      return ctx.throw(err.statusCode, err.response, {expose: true});
     };
     console.error(err, 'Unhandled Error in Add Cart');
     return ctx.throw(config.codes.internalServer);
@@ -42,4 +42,4 @@ router.get('/total', async (ctx) => {
 
 app.use(router.routes());
 
-app.listen(config.port);
+module.exports = app.listen(config.port);
