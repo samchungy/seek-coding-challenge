@@ -1,18 +1,18 @@
 const chai = require('chai');
 const chaiPromimsed = require('chai-as-promised');
 const sinon = require('sinon');
-const mock = require('mock-require');
+const proxyquire = require('proxyquire');
 
 chai.use(chaiPromimsed);
 chai.should();
 
 describe('Dynamodb Common', () => {
-  const errorSpy = sinon.stub(console, 'error');
   const sandbox = sinon.createSandbox();
   const putStub = sandbox.stub();
   const getStub = sandbox.stub();
   const updateStub = sandbox.stub();
   const queryStub = sandbox.stub();
+  const errorSpy = sandbox.spy(console, 'error');
 
   const documentStub = {
     put: sandbox.spy(() => ({promise: putStub})),
@@ -21,13 +21,13 @@ describe('Dynamodb Common', () => {
     query: sandbox.spy(() => ({promise: queryStub})),
   };
   const awsStub = {
-    DynamoDB: {
+    'DynamoDB': {
       DocumentClient: function() {
         return documentStub;
       },
     },
   };
-  mock('aws-sdk', awsStub);
+  ;
 
   const config = {
     dynamodb: {
@@ -35,7 +35,12 @@ describe('Dynamodb Common', () => {
       table: 'table',
     },
   };
-  const common = require('../src/dal/dynamodb/common')({config});
+
+  let common;
+
+  before(() => {
+    common = proxyquire('../src/dal/dynamodb/common', {'aws-sdk': awsStub})({config});
+  });
 
   beforeEach(() => {
     sandbox.reset();
@@ -46,7 +51,6 @@ describe('Dynamodb Common', () => {
     it('should successfully get a non-existant object from Dynamodb', async () => {
       const key = {pk: 'testpk', sk: 'testsk'};
       getStub.resolves({});
-
       await common.getObject({key}).should.become(null);
     });
 
