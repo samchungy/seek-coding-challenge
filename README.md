@@ -15,7 +15,7 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-  * [Features]($features)
+  * [Features](#features)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
