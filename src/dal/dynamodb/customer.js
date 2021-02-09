@@ -37,7 +37,6 @@ const customerDal = ({config, client}) => {
         ':dgp': config.discountGroup.prefix,
       },
     };
-
     return await client.queryObjects(params);
   };
 
