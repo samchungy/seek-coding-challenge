@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "debug": "node --inspect=0.0.0.0:9229  src/index.js",
     "local": "docker-compose down && docker-compose up --build --no-start && docker-compose up -d dynamodb-local && docker-compose run setup-dynamodb && nodemon --exec \"npm run monitor\" || true && docker-compose down",
     "monitor": "docker-compose up --build microservice",
     "test": "nyc mocha"
