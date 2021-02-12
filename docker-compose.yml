@@ -9,6 +9,7 @@ services:
       - dynamodb-local
     ports:
      - "3000:3000"
+     - "9229:9229"
     environment: &main
       AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
       AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
@@ -17,7 +18,7 @@ services:
       AWS_DYNAMODB_TABLE: 'seek-checkout'
     restart: on-failure
     command: 
-      ./scripts/wait-for-it.sh dynamodb-local:8000 -- npm start
+      ./scripts/wait-for-it.sh dynamodb-local:8000 -- npm run debug
 
   dynamodb-local:
     command: "-jar DynamoDBLocal.jar -inMemory -sharedDb"

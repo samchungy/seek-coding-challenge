@@ -13,5 +13,10 @@
     "pk": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
     "sk": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
     "name": "Weekly"
+  },
+  {
+    "pk": "discount_group-aaa",
+    "sk": "discount_group-aaa",
+    "name": "Jora"
   }
 ]
