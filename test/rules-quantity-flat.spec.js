@@ -16,7 +16,7 @@ describe('Rule - Quantity Flat Discount', () => {
       quantityRule.getPrice({price, qty, discount}).should.equal(15);
     });
 
-    it('should apply 3 or more , price drops to $5', async () => {
+    it('should not apply 3 or more, price of item should remain at 10', async () => {
       const qty = 2;
       const price = 10;
       const discount = {qty: 3, price: 5};

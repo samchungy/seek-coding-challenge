@@ -1,4 +1,4 @@
-// Quantity based discount eg. 3 for 2
+// Quantity Flat Hybrid based discount eg. Purchase more than 3 -> price of item drops to $10 each
 const quantityFlatRule = ({config}) => {
   const getPrice = ({price, qty, discount}) => {
     if (qty >= discount.qty) {
