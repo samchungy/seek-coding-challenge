@@ -28,5 +28,21 @@
     "discountGroup": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
     "rule": "flat",
     "price": 299.99
+  },
+  {
+    "pk": "product-premium",
+    "sk": "discount-aaa",
+    "discountGroup": "discount_group-aaa",
+    "rule": "quantityFlat",
+    "qty": 4,
+    "price": 379.99
+  },
+  {
+    "pk": "product-classic",
+    "sk": "discount-bbb",
+    "discountGroup": "discount_group-08d19390-ee53-42d6-870b-a26ad5f6a25d",
+    "rule": "quantityFlat",
+    "qty": 3,
+    "price": 249.99
   }
 ]

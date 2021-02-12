@@ -23,6 +23,7 @@ module.exports = {
     codes: {
       qty: 'qty',
       flat: 'flat',
+      quantityFlat: 'quantityFlat',
     },
   },
   codes: {
