@@ -235,7 +235,7 @@ describe('Service Cart', () => {
       sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
       sinon.assert.calledWith(customerDal.findDiscountGroups, {customerId: params.customerId});
       sinon.assert.calledWith(productDal.getProduct, {id: item.id});
-      sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number});
+      sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number, discountGroups: discountGroups.map((dg) => dg.sk)});
     });
 
     it('should successfully calculate the cart total of a customer with items in the cart with a quantity discount', async () => {
@@ -285,7 +285,7 @@ describe('Service Cart', () => {
       sinon.assert.calledWith(customerDal.getCustomer, {customerId: params.customerId});
       sinon.assert.calledWith(customerDal.findDiscountGroups, {customerId: params.customerId});
       sinon.assert.calledWith(productDal.getProduct, {id: item.id});
-      sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number});
+      sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number, discountGroups: discountGroups.map((dg) => dg.sk)});
     });
 
     it('should successfully calculate the cart total of a customer with items in the cart with a flat discount and a quantity discount', async () => {
@@ -361,8 +361,8 @@ describe('Service Cart', () => {
       sinon.assert.calledWith(customerDal.findDiscountGroups, {customerId: params.customerId});
       sinon.assert.calledWith(productDal.getProduct, {id: item.id});
       sinon.assert.calledWith(productDal.getProduct, {id: item2.id});
-      sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number});
-      sinon.assert.calledWith(productDal.findDiscounts, {id: item2.id, ttl: sinon.match.number});
+      sinon.assert.calledWith(productDal.findDiscounts, {id: item.id, ttl: sinon.match.number, discountGroups: discountGroups.map((dg) => dg.sk)});
+      sinon.assert.calledWith(productDal.findDiscounts, {id: item2.id, ttl: sinon.match.number, discountGroups: discountGroups.map((dg) => dg.sk)});
     });
 
     it('should successfully handle invalid customer', async () => {

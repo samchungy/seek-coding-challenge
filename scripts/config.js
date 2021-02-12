@@ -16,6 +16,14 @@ module.exports = {
           AttributeName: 'sk',
           AttributeType: 'S',
         },
+        {
+          AttributeName: 'name',
+          AttributeType: 'S',
+        },
+        {
+          AttributeName: 'discountGroup',
+          AttributeType: 'S',
+        },
       ],
       KeySchema: [
         {
@@ -29,19 +37,27 @@ module.exports = {
       ],
       GlobalSecondaryIndexes: [
         {
-          IndexName: 'skIndex',
+          IndexName: 'name',
           KeySchema: [
             {
-              AttributeName: 'sk',
+              AttributeName: 'name',
               KeyType: 'HASH',
-            },
-            {
-              AttributeName: 'pk',
-              KeyType: 'RANGE',
             },
           ],
           Projection: {
             ProjectionType: 'KEYS_ONLY',
+          },
+        },
+        {
+          IndexName: 'discountGroup',
+          KeySchema: [
+            {
+              AttributeName: 'discountGroup',
+              KeyType: 'HASH',
+            },
+          ],
+          Projection: {
+            ProjectionType: 'ALL',
           },
         },
       ],

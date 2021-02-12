@@ -34,18 +34,12 @@ const cart = ({config, db, rules}) => {
       // Empty Cart
       return {total: 0, discountTotal: 0};
     }
-
-    const [products, discounts, discountGroups] = await Promise.all([
-      getProducts({cart}),
-      getDiscounts({cart}),
-      getDiscountGroups({customerId}),
-    ]);
-
-    const applicableDiscounts = discounts.filter((d) => discountGroups.find((dg) => dg.sk === d.discountGroup ));
+    const discountGroups = await getDiscountGroups({customerId});
+    const {products, discounts} = await queryProducts({cart, discountGroups});
 
     const {total, discountTotal} = cart.reduce(({total, discountTotal}, item) => {
       const product = products.find((p) => p.pk === item.id);
-      const discount = applicableDiscounts.find((ad) => ad.pk === product.pk);
+      const discount = discounts.find((ad) => ad.pk === product.pk);
       const itemTotal = (item.qty * product.price);
       return {
         total: total + itemTotal,
@@ -57,6 +51,18 @@ const cart = ({config, db, rules}) => {
 
 
   // Helpers
+
+
+  const queryProducts = async ({cart, discountGroups}) => {
+    const [productResults, discountResults] = await Promise.all([
+      Promise.all(cart.map(({id}) => productDal.getProduct({id}))),
+      Promise.all(cart.map(({id}) => productDal.findDiscounts({id, discountGroups, ttl: getUnixTime()}))),
+    ]);
+    return {
+      products: productResults.flat(),
+      discounts: discountResults.flat(),
+    };
+  };
 
   const checkCustomer = async ({customerId}) => {
     const customer = await customerDal.getCustomer({customerId});
@@ -74,18 +80,9 @@ const cart = ({config, db, rules}) => {
     return itemTotal;
   };
 
-  const getProducts = async ({cart}) => {
-    const products = await Promise.all(cart.map(({id}) => productDal.getProduct({id})));
-    return products.flat();
-  };
-
-  const getDiscounts = async ({cart}) => {
-    const discounts = await Promise.all(cart.map(({id}) => productDal.findDiscounts({id, ttl: getUnixTime()})));
-    return discounts.flat();
-  };
-
   const getDiscountGroups = async ({customerId}) => {
-    return customerDal.findDiscountGroups({customerId});
+    const dgResults = await customerDal.findDiscountGroups({customerId});
+    return dgResults.map((dg) => dg.sk);
   };
 
   return {
